@@ -55,10 +55,10 @@ development:
   dev_server:
     https: false
     host: localhost
-    port: 8082
-    public: localhost:8082
-    # port: 3035
-    # public: localhost:3035
+    # port: 8082
+    # public: localhost:8082
+    port: 3035
+    public: localhost:3035
     hmr: false
     # Inline should be set to true if using HMR
     inline: true
