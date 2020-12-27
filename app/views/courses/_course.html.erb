@@ -1,0 +1,17 @@
+<div class="card mb-5">
+    <div class="card-header">
+        <h5 class="card-title"><i class="fas fa-book mr-1"></i><%= link_to course.title, course %></h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text"><%= course.description %></p>
+    </div>
+    <div class="card-footer">
+        <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
+        <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user %><br>
+    </div>
+    <div class="card-footer">
+        <%= link_to 'Show', course, class:"btn btn-small btn-primary"%>
+        <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning"%>
+        <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-small btn-danger" %>
+    </div>
+</div>

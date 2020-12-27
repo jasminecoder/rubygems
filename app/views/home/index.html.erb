@@ -1,47 +1,92 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-md- 5">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2><i class="fas fa-flag"></i><i class="far fa-flag"></i>Home#index</h2>
-            <p>Find me in app/views/home/index.html.erb</p>
-            <i class="fab fa-accessible-icon"></i>
+            <div class="jumbotron text-center">
+                <h1 class="display-4">What do you want to learn today?</h1>
+
+                <div class="form-inline px-5 mt-4">
+                    <%= form_tag(courses_path, method: :get) do %>
+                    <div class="input-group">
+                        <%= text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control' %>
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><span aria-hidden="true" class="fa fa-search"></span></button>
+                        </span>
+                    </div>
+                    <% end  %>
+                </div>
+            </div>
+
+            <div class="card-group">
+                <div class="card card-body">
+                    <h1>
+                        <div class="fa fa-graduation-cap"></div>
+                    </h1>
+                    <%= Course.count %> online courses
+                    <br>
+                    Explore a variety of online courses
+                </div>
+                <div class="card card-body">
+                    <h1>
+                        <div class="fa fa-chalkboard-teacher"></div>
+                    </h1>
+                    <%= Course.distinct.count(:user_id) %> expert instructors
+                    <br>
+                    Find the right instructor for you
+                </div>
+                <div class="card card-body">
+                    <h1>
+                        <div class="fa fa-user-graduate"></div>
+                    </h1>
+                    <%= User.count %> Active learners
+                    <br>
+                    Join the knowledge sharing community
+                </div>
+                <div class="card card-body">
+                    <h1>
+                        <div class="fa fa-infinity"></div>
+                    </h1>
+                    Lifetime access
+                    <br>
+                    Learn on your own schedule
+                </div>
+            </div>
+
+            <div class="text-left">
+                <hr>
+                <p class="lead">Popular courses</p>
+                <div class="card-columns">
+                    <% @courses.each do |course| %>
+                    <%= render 'courses/course', course: course %>
+                    <% end %>
+                </div>
+                <hr>
+                <p class="lead">Top rated courses</p>
+                <div class="card-columns">
+                    <% @courses.each do |course| %>
+                    <%= render 'courses/course', course: course %>
+                    <% end %>
+                </div>
+                <hr>
+                <p class="lead">Latest courses</p>
+                <div class="card-columns">
+                    <% @latest_courses.each do |course| %>
+                    <%= render 'courses/course', course: course %>
+                    <% end %>
+                </div>
+                <hr>
+            </div>
+
+
+
+
+
+
+
+
+            <%= link_to raw('<i class="fas fa-home"></i>'), root_path  %>
+            <%= link_to raw('<i class="fas fa-book"></i> Course'), courses_path, class:'text-light btn btn-primary'  %>
+
+
 
 
         </div>
