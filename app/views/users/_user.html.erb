@@ -19,4 +19,16 @@
         <%= 'last_sign_in_ip'.humanize %>
         <%= user.last_sign_in_ip %><br>
     </div>
+    <div class="card-footer">
+        confirmed email?
+        <% if user.confirmed_at.present? %>
+        <div class="badge badge-success">
+            Yes
+        </div>
+        <% else %>
+        <div class="badge badge-danger">
+            No
+        </div>
+        <% end %>
+    </div>
 </div>
