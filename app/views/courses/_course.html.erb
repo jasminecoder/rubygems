@@ -1,13 +1,31 @@
 <div class="card mb-5">
     <div class="card-header">
-        <h5 class="card-title"><i class="fas fa-book mr-1"></i><%= link_to course.title, course %></h5>
+        <h5 class="card-title"><i class="fas fa-graduation-cap mr-1"></i><%= link_to course.title, course %></h5>
     </div>
     <div class="card-body">
-        <p class="card-text"><%= course.description %></p>
+        <p class="card-text"><%= course.short_description %></p>
+    </div>
+    <div class="card-footer text-center">
+        <%= number_to_currency(course.price) %>
     </div>
     <div class="card-footer">
-        <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
-        <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user %><br>
+        <div class="row">
+            <div class="col-md-6">
+                <i class="fas fa-globe-americas mr-1"></i><%= course.language %>
+            </div>
+            <div class="col-md-6 text-right">
+                <i class="fas fa-signal mr-1"></i><%= course.level %>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
+                <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user %><br>
+            </div>
+        </div>
     </div>
     <div class="card-footer">
         <%= link_to 'Show', course, class:"btn btn-small btn-primary"%>
