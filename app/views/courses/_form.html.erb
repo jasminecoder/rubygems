@@ -6,15 +6,10 @@
     <%= f.input :title %>
     <%= f.input :short_description %>
     <%= f.label :description %>
-    <%
-=begin%>
-    <%= f.input :description %>
-    <%
-=end%>
     <%= f.rich_text_area :description %>
     <small><%=  f.error :description, class:'text-danger' %></small>
-    <%= f.input :language, collection: [ "English", "Spanish", "French"] %>
-    <%= f.input :level, collection: [ "Beginner", "Intermediate", "Advanced"] %>
+    <%= f.input :language, collection: Course.languages %>
+    <%= f.input :level, collection: Course.levels %>
     <%= f.input :price %>
 </div>
 

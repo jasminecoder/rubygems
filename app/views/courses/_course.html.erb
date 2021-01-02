@@ -20,10 +20,20 @@
     </div>
 
     <div class="card-footer">
-        <div class="row">
+        <div class="row d-block d-lg-none">
             <div class="col-md-12">
                 <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
-                <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user %><br>
+                <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user.username %><br>
+            </div>
+        </div>
+        <div class="row d-md-none d-lg-block">
+            <div class="d-flex">
+                <div class="col-lg-6">
+                    <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user.username %><br>
+                </div>
             </div>
         </div>
     </div>
