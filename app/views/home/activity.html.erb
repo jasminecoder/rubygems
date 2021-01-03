@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+        <p class="lead">Activity <span class="badge badge-info"><%= @activities.count %> </span></p>
+        <ul class="list-group">
+            <% @activities.each do |activity| %>
+            <li class="list-group-item">
+                trackable_id same as Course id:<%= activity.trackable_id %> |
+                trackable_type: <%= activity.trackable_type %> |
+                owner: <%= activity.owner_type %> |
+                trackable: <%= link_to activity.trackable, activity.trackable %> |
+                key: <%= activity.key %> |
+                parameters: <%= activity.parameters %> |
+                created at:<%= activity.created_at %>
+            </li>
+            <% end %>
+    </div>
+</div>

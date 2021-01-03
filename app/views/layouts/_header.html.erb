@@ -20,11 +20,11 @@
                 <li class="<%= 'active font-weight-bold' if current_page?(users_path) %> nav-item">
                     <%= link_to raw('<i class="fas fa-user"></i> Users'), users_path, class:"nav-link" %>
                 </li>
-            </ul>
 
+            </ul>
             <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>
             <div class="input-group">
-                <%= text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control' %>
+                <%= f.search_field :title_cont, class: 'form-control', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off %>
                 <span class="input-group-append">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><span aria-hidden="true" class="fa fa-search"></span></button>
                 </span>
@@ -52,8 +52,8 @@
 
         </div>
         <ul class="navbar-nav ml-auto">
-            <li class="<%= 'active font-weight-bold' if current_page?(root_path) %> nav-item">
-                <%= link_to 'Other Link', root_path, class:'nav-link' %>
+            <li class="<%= 'active font-weight-bold' if current_page?(home_activity_path) %> nav-item">
+                <%= link_to raw('<i class="fas fa-bell"></i> Activity'), home_activity_path, class:"nav-link" %>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
