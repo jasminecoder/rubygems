@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header">
+                <%= @user.email %>
+            </div>
+            <div class="card-body">
+                <%= simple_form_for @user do |f| %>
+                <%= f.collection_check_boxes :role_ids, Role.all, :id, :name %>
+                <%= f.error :roles, class: 'text-danger' %>
+                <hr>
+                <%= f.button :submit, class: 'btn btn-success' %>
+                <% end %>
+            </div>
+            <div class="card-footer">
+                <%= link_to 'Cancel', users_path, class: 'btn btn-danger mt-3' %>
+            </div>
+        </div>
+
+    </div>
+</div>
