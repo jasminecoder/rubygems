@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-5">
     <div class="card-header">
         <i class="fa fa-user"></i>
         <%= user.email %>
@@ -28,6 +28,13 @@
         <% else %>
         <div class="badge badge-danger">
             No
+        </div>
+        <% end %>
+    </div>
+    <div class="card-footer">
+        <% user.roles.each do |role|%>
+        <div class="badge badge-info">
+            <%= role.name %>
         </div>
         <% end %>
     </div>

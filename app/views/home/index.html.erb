@@ -4,6 +4,7 @@
             <div class="jumbotron text-center">
                 <h1 class="display-4">What do you want to learn today?</h1>
 
+                <% if user_signed_in? %>
                 <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>
                 <div class="input-group">
                     <%= f.search_field :title_cont, class: 'form-control', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off %>
@@ -12,6 +13,8 @@
                     </span>
                 </div>
                 <% end %>
+                <% end %>
+
 
 
 
