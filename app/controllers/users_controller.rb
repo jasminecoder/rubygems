@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:edit, :update]
+    before_action :set_user, only: [:edit, :update, :show]
 
     def index
         # @users = User.all.order(created_at: :desc)   
@@ -8,14 +8,20 @@ class UsersController < ApplicationController
     end   
     
     def edit
+        authorize @user
     end
 
     def update
+        authorize @user
         if @user.update(user_params)
             redirect_to users_path, notice: "User roles for #{@user.email} was successfully updated."
         else
             render :edit
         end
+    end
+
+    def show
+        
     end
 
     private

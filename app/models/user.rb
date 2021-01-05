@@ -37,6 +37,6 @@ class User < ApplicationRecord
       errors.add(:roles, "must have at least one role")
     end
   end
-
+ 
  
 end

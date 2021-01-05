@@ -37,9 +37,12 @@
             </div>
         </div>
     </div>
+    <% if user_signed_in? && policy(course).edit? %>
     <div class="card-footer">
-        <%= link_to 'Show', course, class:"btn btn-small btn-primary"%>
-        <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning"%>
-        <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-small btn-danger" %>
+        <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning" %>
+        <% if policy(course).destroy? %>
+        <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-small btn-danger"%>
+        <% end %>
     </div>
+    <% end %>
 </div>
