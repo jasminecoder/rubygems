@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <% if user_signed_in? && policy(course).edit? %>
+    <% if current_user && policy(course).edit? %>
     <div class="card-footer">
         <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning" %>
         <% if policy(course).destroy? %>

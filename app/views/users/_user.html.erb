@@ -1,7 +1,13 @@
 <div class="card mb-5">
     <div class="card-header">
         <i class="fa fa-user"></i>
+        <% if user.online? %>
+        <small><i class="fas fa-circle text-success"></i></small>
+        <% else %>
+        <small><i class="fas fa-circle text-secondary"></i></small>
+        <% end %>
         <%= link_to user.email, user_path(user) %>
+
     </div>
     <div class="card-footer">
         Signed up
