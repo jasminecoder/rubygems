@@ -1,0 +1,12 @@
+        <div class="card">
+            <div class="card-header">
+                <%= link_to lesson.title, lesson_path(lesson) %>
+            </div>
+            <div class="card-body">
+                <%= lesson.content %><br>
+            </div>
+            <div class="card-footer">
+                <%= link_to 'Edit', edit_lesson_path(lesson), class: 'btn btn-sm btn-warning' %>
+                <%= link_to 'Delete', lesson, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            </div>
+        </div>

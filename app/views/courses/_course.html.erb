@@ -8,6 +8,12 @@
     <div class="card-footer text-center">
         <%= number_to_currency(course.price) %>
     </div>
+    <div class="card-footer text-center">
+        <i class="fas fa-book mr-1"></i>
+
+        <%=  course.lessons.count %>
+        Lessons
+    </div>
     <div class="card-footer">
         <div class="row">
             <div class="col-md-6">
