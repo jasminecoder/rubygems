@@ -7,6 +7,6 @@ class HomeController < ApplicationController
   end
 
   def activity 
-    @activities = PublicActivity::Activity.all
+    @activities = PublicActivity::Activity.all.sort_by(&:created_at).reverse
   end
 end

@@ -1,6 +1,15 @@
 <div class="row">
     <div class="col-md-12">
-        <p id="notice"><%= notice %></p>
+        <%= link_to 'Courses', courses_path %>
+        <span class="mx-1 text-primary"> / </span>
+        <%= link_to @lesson.course.title, course_path(@lesson.course) %>
+        <span class="mx-1 text-primary"> / </span>
+        <%= link_to @lesson.title, lesson_path(@lesson) %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         <%= render 'lessons/lesson', lesson: @lesson %>
         <%= link_to 'Back to course', course_path(@lesson.course) %>
     </div>
