@@ -38,7 +38,7 @@
                     <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
                 </div>
                 <div class="col-lg-6 text-right">
-                    <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user.username %><br>
+                    <i class="fas fa-chalkboard-teacher mr-1"></i><%= link_to course.user.username, user_path(course.user) %><br>
                 </div>
             </div>
         </div>
