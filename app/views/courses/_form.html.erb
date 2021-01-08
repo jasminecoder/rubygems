@@ -7,7 +7,9 @@
     <%= f.input :short_description %>
     <%= f.label :description %>
     <%= f.rich_text_area :description %>
-    <small><%=  f.error :description, class:'text-danger' %></small>
+    <small>
+        <%=  f.error :description, class:'text-danger d-inline' %>
+    </small>
     <%= f.input :language, collection: Course.languages %>
     <%= f.input :level, collection: Course.levels %>
     <%= f.input :price %>
