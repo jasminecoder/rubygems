@@ -1,6 +1,14 @@
-<h1>Editing Lesson</h1>
-
-<%= render 'form', lesson: @lesson %>
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h1>Editing Lesson</h1>
+            </div>
+            <div class="card-body">
+                <%= render 'form', lesson: @lesson %>
+            </div>
+        </div>
+    </div>
+</div>
 <%= link_to 'Show lesson', course_lesson_path(@course, @lesson) %> |
 <%= link_to 'Back to course', course_path(@lesson.course) %>

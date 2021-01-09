@@ -1,5 +1,13 @@
-<h1>New Lesson</h1>
-
-<%= render 'form', lesson: @lesson %>
-
-<%= link_to 'Back', course_path(@course) %>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h1>New Lesson</h1>
+            </div>
+            <div class="card-body">
+                <%= render 'form', lesson: @lesson %>
+            </div>
+        </div>
+        <%= link_to 'Back', course_path(@course) %>
+    </div>
+</div>
