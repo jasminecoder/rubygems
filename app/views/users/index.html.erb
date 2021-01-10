@@ -4,11 +4,17 @@
     </div>
 </div>
 
+<%
+=begin%>
+
 <div class="card-columns">
     <% @users.each do |user| %>
     <%= render 'users/user', user: user %>
     <% end %>
 </div>
+<%
+=end%>
+
 
 
 <%= search_form_for @q do |f| %>
@@ -16,7 +22,7 @@
 <%= f.search_field :sign_in_count_eq, placeholder: 'Sign in count' %>
 <%= f.submit %>
 <br>
-<%= link_to users_path, class:'btn btn-sm btn-secondary' do %>
+<%= link_to users_path, class:'btn btn-sm btn-secondary mt-1 mb-3' do %>
 <i class="fas fa-sync"></i>
 <% end %>
 <% end %>
@@ -31,6 +37,7 @@
             <th scope="col"><%= 'last_sign_in_at'.humanize %></th>
             <th scope="col"><%= 'current_sign_in_at'.humanize %></th>
             <th scope="col"><%= 'last_sign_in_ip'.humanize %></th>
+            <th scope="col">Confirmed email?</th>
             <th scope="col"><%= 'Roles' %></th>
         </tr>
     </thead>
@@ -45,9 +52,19 @@
             <td scope="row"><%= user.last_sign_in_at %></td>
             <td scope="row"><%= user.current_sign_in_at %></td>
             <td scope="row"><%= user.last_sign_in_ip %></td>
+            <td scope="row"><%= user.confirmed? %></td>
+            <td scope="row"><%= user.last_sign_in_ip %></td>
+            </td>
             <td scope="row">
                 <% user.roles.each do |role| %>
-                <%= role.name %>
+                <span class='btn btn-sm btn-info mb-1'>
+                    <%= role.name %>
+                </span>
+                <% end %>
+                <% if policy(user).edit? %>
+                <span>
+                    <%= link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning' %>
+                </span>
                 <% end %>
             </td>
         </tr>

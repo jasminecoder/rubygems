@@ -1,5 +1,6 @@
         <div class="card mb-3">
             <div class="card-header">
+                <i class="far fa-check-square text-primary"></i>
                 <%= link_to lesson.title, course_lesson_path(@course, lesson) %>
             </div>
             <% if policy(lesson).show? %>

@@ -1,8 +1,22 @@
 <div class="row">
     <div class="col-md-12">
+        <%= link_to 'Courses', courses_path %>
+        <span class="mx-1 text-primary"> / </span>
+        <%= link_to @course.title , course_path(@course) %>
+        <span class="mx-1 text-primary"> /
+            New
+        </span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
         <div class="card mb-3">
             <div class="card-header">
-                <h1>New Lesson</h1>
+                <h3>
+                    <i class="far fa-check-square text-primary"></i>
+                    New Lesson
+                </h3>
             </div>
             <div class="card-body">
                 <%= render 'form', lesson: @lesson %>
