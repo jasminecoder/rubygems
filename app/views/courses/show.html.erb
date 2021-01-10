@@ -1,3 +1,7 @@
+<% content_for :title do %>
+<%= @course.title %> - Courses
+<% end %>
+
 <div class="row">
     <div class="col-12">
         <%= link_to 'Courses', courses_path %> /

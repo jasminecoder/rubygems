@@ -1,3 +1,8 @@
+<% content_for :title do %>
+Activity - Courses
+<% end %>
+
+
 <div class="row">
     <div class="col-md-12">
         <p class="lead">Activity <span class="badge badge-info"><%= @activities.count %> </span></p>
@@ -7,7 +12,11 @@
                 trackable_id same as Course id:<%= activity.trackable_id %> |
                 trackable_type: <%= activity.trackable_type %> |
                 owner: <%= activity.owner_type %> |
+                <%
+=begin%>
                 trackable: <%= link_to activity.trackable, activity.trackable %> |
+                <%
+=end%>
                 key: <%= activity.key %> |
                 parameters: <%= activity.parameters %> |
                 created at:<%= activity.created_at %>
