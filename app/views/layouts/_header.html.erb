@@ -20,6 +20,9 @@
                 <li class="<%= 'active font-weight-bold' if current_page?(users_path) %> nav-item">
                     <%= link_to raw('<i class="fas fa-user"></i> Users'), users_path, class:"nav-link" %>
                 </li>
+                <li class="<%= 'active font-weight-bold' if current_page?(enrollments_path) %> nav-item">
+                    <%= link_to raw('<i class="fa s fa-lock-open"></i> Enrollments'), enrollments_path, class:"nav-link" %>
+                </li>
 
             </ul>
             <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>

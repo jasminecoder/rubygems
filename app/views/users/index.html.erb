@@ -30,56 +30,55 @@ All users - Courses
 <i class="fas fa-sync"></i>
 <% end %>
 <% end %>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col"><%= sort_link(@q, :email) %></th>
-            <th scope="col"><%= sort_link(@q, :created_at) %></th>
-            <th scope="col"><%= 'sign_in_count'.humanize %></th>
-            <th scope="col"><%= 'current_sign_in_at'.humanize %></th>
-            <th scope="col"><%= 'last_sign_in_at'.humanize %></th>
-            <th scope="col"><%= 'current_sign_in_at'.humanize %></th>
-            <th scope="col"><%= 'last_sign_in_ip'.humanize %></th>
-            <th scope="col">Confirmed email?</th>
-            <th scope="col"><%= 'Roles' %></th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @users.each do |user|%>
-        <tr>
-            <th scope="row"><%= user.id %></th>
-            <td scope="row" class="d-flex">
-                <% if user.online? %>
-                <small><i class="fas fa-circle text-success mr-1"></i></small>
-                <% else %>
-                <small><i class="fas fa-circle text-secondary mr-1"></i></small>
-                <% end %>
-                <%= link_to user.email, user_path(user) %>
-            </td>
-            <td scope="row"><%= user.created_at %></td>
-            <td scope="row"><%= user.sign_in_count %></td>
-            <td scope="row"><%= user.current_sign_in_at %></td>
-            <td scope="row"><%= user.last_sign_in_at %></td>
-            <td scope="row"><%= user.current_sign_in_at %></td>
-            <td scope="row"><%= user.last_sign_in_ip %></td>
-            <td scope="row"><%= user.confirmed? %></td>
-            <td scope="row"><%= user.last_sign_in_ip %></td>
-            </td>
-            <td scope="row">
-                <% user.roles.each do |role| %>
-                <span class='btn btn-sm btn-info mb-1'>
-                    <%= role.name %>
-                </span>
-                <% end %>
-                <% if policy(user).edit? %>
-                <span>
-                    <%= link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning' %>
-                </span>
-                <% end %>
-            </td>
-        </tr>
-        <% end %>
-    </tbody>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col"><%= sort_link(@q, :email) %></th>
+                <th scope="col"><%= sort_link(@q, :created_at) %></th>
 
-</table>
+                <th scope="col"><%= 'sign_in_count'.humanize %></th>
+                <th scope="col"><%= 'current_sign_in_at'.humanize %></th>
+                <th scope="col"><%= 'last_sign_in_at'.humanize %></th>
+                <th scope="col"><%= 'last_sign_in_ip'.humanize %></th>
+                <th scope="col">Confirmed email?</th>
+                <th scope="col">Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @users.each do |user|%>
+            <tr>
+                <th scope="row"><%= user.id %></th>
+                <td scope="row" class="d-flex">
+                    <% if user.online? %>
+                    <small><i class="fas fa-circle text-success mr-1"></i></small>
+                    <% else %>
+                    <small><i class="fas fa-circle text-secondary mr-1"></i></small>
+                    <% end %>
+                    <%= link_to user.email, user_path(user) %>
+                </td>
+                <td scope="row"><%= user.created_at %></td>
+                <td scope="row"><%= user.sign_in_count %></td>
+                <td scope="row"><%= user.current_sign_in_at %></td>
+                <td scope="row"><%= user.last_sign_in_at %></td>
+                <td scope="row"><%= user.last_sign_in_ip %></td>
+                <td scope="row"><%= user.confirmed? %></td>
+                <td scope="row">
+                    <% user.roles.each do |role| %>
+                    <span class='btn btn-sm btn-info mb-1'>
+                        <%= role.name %>
+                    </span>
+                    <% end %>
+                    <% if policy(user).edit? %>
+                    <span>
+                        <%= link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning' %>
+                    </span>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+
+    </table>
+</div>
