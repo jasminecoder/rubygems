@@ -20,8 +20,8 @@ Edit Enrollment:
         <div class="card mb-3">
             <div class="card-header">
                 <h3>
-                    <i class="fas fa-graduation-cap"></i>
-                    Editing Enrollment
+                    <i class="fas fa-star text-warning"></i>
+                    Add a review
                 </h3>
             </div>
             <div class="card-body">
@@ -30,5 +30,6 @@ Edit Enrollment:
         </div>
     </div>
 </div>
-<%= link_to 'Show', @enrollment %> |
-<%= link_to 'Back', enrollments_path %>
+
+<%= link_to 'Show Review', @enrollment %> |
+<%= link_to 'Back To Course', course_path(@enrollment.course) %>

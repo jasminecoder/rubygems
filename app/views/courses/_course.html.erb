@@ -6,11 +6,10 @@
         <p class="card-text"><%= course.short_description %></p>
     </div>
     <div class="card-footer text-center">
-        <%= number_to_currency(course.price) %>
+        <%= enrollment_button(course) %>
     </div>
     <div class="card-footer text-center">
         <i class="fas fa-tasks mr-1"></i>
-
         <%=  course.lessons.count %>
         Lessons
     </div>
