@@ -10,19 +10,43 @@ Enrollments - Courses
     </div>
 </div>
 
+<%= search_form_for @q do |f| %>
+<%= f.search_field :user_email_cont, placeholder: 'email' %>
+<%= f.search_field :course_title_cont, placeholder: 'course' %>
+<%= f.search_field :price_eq, placeholder: 'price' %>
+<%= f.search_field :rating_eq, placeholder: 'rating' %>
+<%= f.search_field :review_cont, placeholder: 'review' %>
+
+
+<%= f.submit %>
+<% end %>
+<%= link_to 'Refresh', enrollments_path %>
+
 <table class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
             <th>Enrollment <br> ID</th>
+
+            <%
+=begin%>
             <th><i class="fa fa-user mr-1"></i>User</th>
+            <%
+=end%>
 
+
+            <th><i class="fa fa-user mr-1"></i><%= sort_link(@q, :user_email) %></th>
             <th><i class="fa fa-clock mr-1"></i>
-                <i class="fa fa-lock-open mr-1"></i>Bought</th>
-            <th><i class="fa fa-graduation-cap mr-1"></i>Course</th>
-            <th><i class="fa fa-dollar-sign mr-1"></i>Price</th>
-            <th><i class="fa fa-clock mr-1 text-warning"></i>Reviewed on</th>
+                <i class="fa fa-lock-open mr-1"></i>Bought<%= sort_link(@q, :created_at) %></th>
 
-            <th><i class="fa fa-star mr-1 text-warning"></i>Rating</th>
+            <th><i class="fa fa-graduation-cap mr-1"></i><%= sort_link(@q, :course_title) %></th>
+
+
+
+
+            <th><i class="fa fa-dollar-sign mr-1"></i><%= sort_link(@q, :price) %></th>
+            <th><i class="fa fa-clock mr-1 text-warning"></i>Reviewed on <%= sort_link(@q, :updated_at) %></th>
+
+            <th><i class="fa fa-star mr-1 text-warning"></i><%= sort_link(@q, :rating) %></th>
             <th><i class="fa fa-comment mr-1 text-warning"></i>Review</th>
             <th></th>
             <th></th>
