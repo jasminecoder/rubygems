@@ -28,4 +28,8 @@ module CoursesHelper
             end
         end
     end
+
+    def review_count(course)
+        course.enrollments.where(rating: [1..5]).count
+    end
 end

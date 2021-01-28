@@ -10,6 +10,13 @@
         <%= review_button(course) %>
     </div>
     <div class="card-footer text-center">
+        <p class="mb-1"><span class="text-warning fa fa-star mr-1"><%= course.average_rating %></span>
+            (<%= review_count(course)%> reviews)
+            - <%= course.enrollments.count %> students
+        </p>
+
+    </div>
+    <div class="card-footer text-center">
         <i class="fas fa-tasks mr-1"></i>
         <%=  course.lessons.count %>
         Lessons
