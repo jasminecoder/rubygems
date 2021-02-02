@@ -83,11 +83,30 @@
                     <a class="nav-link dropdown-toggle" href="#" id="studentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-graduation-cap mr-1"></i><b>Learn</b>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="studentDropdown">
-                        <%= link_to raw('<i class="fas fa-graduation-cap"></i> Purchased Courses'), purchased_courses_path, class:"nav-link" %>
-                        <%= link_to raw('<i class="fas fa-graduation-cap"></i> Pending Review'), pending_review_courses_path, class:"nav-link" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Sign out'), destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+                    <div class="dropdown-menu text-small" aria-labelledby="studentDropdown">
+
+                        <%= link_to purchased_courses_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-graduation-cap"></i> Purchased Courses'
+                            </div>
+                            <div class="badge badge-danger">
+                                <%= current_user.enrollments_count %>
+                            </div>
+                        </div>
+                        <% end %>
+
+
+                        <%= link_to pending_review_courses_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-graduation-cap"></i> Pending Review
+                            </div>
+                            <div class="badge badge-danger">
+                                <%= current_user.enrollments.pending_review.count %>
+                            </div>
+                        </div>
+                        <% end %>
                     </div>
                 </li>
                 <% end %>
@@ -100,14 +119,27 @@
                         <i class="fas fa-chalkboard-teacher mr-1"></i><b>Teacher</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="teacherDropdown">
-                        <%= link_to raw('<i class="fas fa-plus"></i> New Course'), new_course_path, class:"nav-link" %>
-                        <%= link_to raw('<i class="fas fa-graduation-cap"></i> My Courses'), created_courses_path, class:"nav-link" %>
-                        <%= link_to raw('<i class="fas fa-users"></i> My Students'), my_students_enrollments_path, class:"nav-link" %>
+                        <%= link_to raw('<i class="fas fa-plus"></i> New Course'), new_course_path, class:"nav-link small" %>
 
-                        <%= link_to raw('<i class="fa s fa-lock-open"></i> Enrollments'), enrollments_path, class:"nav-link" %>
-                        <%= link_to raw('<i class="fas fa-bell"></i> Activity'), activity_path, class:"nav-link" %>
-                        <div class="dropdown-divider"></div>
-                        <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Sign out'), destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+                        <%= link_to created_courses_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>My Courses</span>
+                            </div>
+                            <span class="badge badge-danger ml-auto"><%= current_user.courses_count %></span></span>
+                        </div>
+                        <% end %>
+
+                        <%= link_to my_students_enrollments_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-users"></i>
+                                <span>My Students</span>
+                            </div>
+                            <span class="badge badge-danger ml-auto"><%= Enrollment.joins(:course).where(courses: {user: current_user}).count %></span></span>
+                        </div>
+                        <% end %>
                     </div>
                 </li>
                 <% end %>
@@ -120,11 +152,41 @@
                         <i class="fas fa-cog mr-1"></i><b>Admin</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                        <%= link_to raw('<i class="fas fa-user"></i> Users'), users_path, class:"nav-link" %>
-                        <%= link_to raw('<i class="fa s fa-lock-open"></i> Enrollments'), enrollments_path, class:"nav-link" %>
-                        <%= link_to raw('<i class="fas fa-bell"></i> Activity'), activity_path, class:"nav-link" %>
+                        <%= link_to users_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-user"></i> Users
+                            </div>
+                            <div class="badge badge-danger ml-auto">
+                                <%= User.all.count %>
+                            </div>
+                        </div>
+                        <% end %>
+
+                        <%= link_to enrollments_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-lock-open"></i> Enrollments
+                            </div>
+                            <div class="badge badge-danger ml-auto"><%= Enrollment.all.count %>
+                            </div>
+                        </div>
+                        <% end %>
+
+
+                        <%= link_to activity_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-bell"></i> Activity
+                            </div>
+                            <div class="badge badge-danger ml-auto">
+                            </div>
+                        </div>
+                        <% end %>
+
+
                         <div class="dropdown-divider"></div>
-                        <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Sign out'), destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+                        <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Sign out'), destroy_user_session_path, method: :delete, class:"dropdown-item small" %>
                     </div>
                 </li>
                 <% end %>

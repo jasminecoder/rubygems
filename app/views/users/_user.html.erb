@@ -24,6 +24,13 @@
         <%= user.current_sign_in_ip %><br>
         <%= 'last_sign_in_ip'.humanize %>
         <%= user.last_sign_in_ip %><br>
+
+    </div>
+    <div class="card-footer">
+        Courses created:
+        <%= user.courses_count %><br>
+        Enrolled to:
+        <%= user.enrollments_count %> courses
     </div>
     <div class="card-footer">
         confirmed email?

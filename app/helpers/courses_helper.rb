@@ -30,6 +30,6 @@ module CoursesHelper
     end
 
     def review_count(course)
-        course.enrollments.where(rating: [1..5]).count
+        course.enrollments.where(rating: [1..5]).size
     end
 end
