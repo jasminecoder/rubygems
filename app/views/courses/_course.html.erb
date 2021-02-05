@@ -9,47 +9,24 @@
         <%= enrollment_button(course) %><br>
         <%= review_button(course) %>
     </div>
-    <div class="card-footer text-center">
+
+    <div class="<%= 'd-flex justify-content-between' if current_page?(course_path(course))%> card-footer text-center">
         <p class="mb-1"><span class="text-warning fa fa-star mr-1"><%= course.average_rating %></span>
             (<%= review_count(course)%> reviews)
             - <%= course.enrollments_count %> students
         </p>
-
-    </div>
-    <div class="card-footer text-center">
-        <i class="fas fa-tasks mr-1"></i>
-        <%=  course.lessons_count %>
-        Lessons
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-md-6">
-                <i class="fas fa-globe-americas mr-1"></i><%= course.language %>
-            </div>
-            <div class="col-md-6 text-right">
-                <i class="fas fa-signal mr-1"></i><%= course.level %>
-            </div>
-        </div>
+        <p>
+            <i class="fas fa-tasks mr-1"></i>
+            <%=  course.lessons_count %>
+            Lessons
+        </p>
+        <p class="">
+            <i class="fas fa-chalkboard-teacher mr-1"></i><%= link_to course.user.username, user_path(course.user) %>
+        </p>
     </div>
 
-    <div class="card-footer">
-        <div class="row d-block d-lg-none">
-            <div class="col-md-12">
-                <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
-                <i class="fas fa-chalkboard-teacher mr-1"></i><%= course.user.username %><br>
-            </div>
-        </div>
-        <div class="row d-md-none d-lg-block">
-            <div class="d-flex">
-                <div class="col-lg-6">
-                    <i class="far fa-clock mr-1"></i><%= course.created_at.strftime('%d-%b-%Y')%><br>
-                </div>
-                <div class="col-lg-6 text-right">
-                    <i class="fas fa-chalkboard-teacher mr-1"></i><%= link_to course.user.username, user_path(course.user) %><br>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
     <% if current_user && policy(course).edit? %>
     <div class="card-footer">
         <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning" %>

@@ -1,12 +1,12 @@
 <% content_for :title do %>
-Enrollments - Courses
+<%= action_name.humanize %> enrollments - Courses
 <% end %>
 
 <p id="notice"><%= notice %></p>
 
 <div class="row">
     <div class="col-md-12">
-        <p class="lead">Enrollments <span class="badge badge-info"><%= @pagy.count %> </span></p>
+        <p class="lead"><%= action_name.humanize %> enrollments <span class="badge badge-info"><%= @pagy.count %> </span></p>
     </div>
 </div>
 

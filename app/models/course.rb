@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
     validates :title, :short_description, :language, :level, :price, presence: true
     validates :description, presence: true, length: {:minimum => 5}
+    validates :title, uniqueness: true
     has_rich_text :description
     belongs_to :user, counter_cache: true
     has_many :lessons, dependent: :destroy
@@ -8,8 +9,10 @@ class Course < ApplicationRecord
     extend FriendlyId
     friendly_id :title, use: :slugged
     
-
-    
+    scope :latest, -> { order(created_at: :desc).limit(3) }
+    scope :popular, -> { order(enrollments_count: :desc, created_at: :desc ).limit(3) }
+    scope :top_rated, -> { order(average_rating: :desc, created_at: :desc ).limit(3) }
+     
 
     LANGUAGES = [:"English", :"Spanish", :"French", :"Italian"]
     def self.languages 

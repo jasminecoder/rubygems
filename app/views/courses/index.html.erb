@@ -1,29 +1,33 @@
 <% content_for :title do %>
-All courses - Courses
+<%= action_name.humanize %> courses - Courses
 <% end %>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <p id="notice"><%= notice %></p>
-
-            <p class="lead">Courses <span class="badge badge-info"><%= @pagy.count %> </span></p>
+            <p class="lead"><%= action_name.humanize%> <span class="badge badge-info"><%= @pagy.count %> </span></p>
             <div class="row">
                 <div class="col-lg-3">
                     <%= search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f| %>
                     <%= f.label :title %>
-                    <%= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm' %>
+                    <%= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm' %><br>
                     <%= f.label :description %>
-                    <%= f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm' %>
+                    <%= f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm' %><br>
                     <%= f.label :language %>
-                    <%= f.select :language_cont, Course.languages , include_blank: true, placeholder: 'Language', class: 'form-control form-control-sm' %>
+                    <%= f.select :language_cont, Course.languages , include_blank: true, placeholder: 'Language', class: 'form-control form-control-sm' %><br>
                     <br>
                     <%= f.label :level %>
                     <%= f.select :level_cont, Course.levels , include_blank: true, placeholder: 'Level', class: 'form-control form-control-sm' %>
                     <br>
                     <%= f.label :price %>
-                    <%= f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm' %>
+                    <%= f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm' %><br>
                     <%= f.label :teacher %>
-                    <%= f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm' %>
+                    <%= f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm' %><br>
+                    <%= sort_link(@ransack_courses, :price) %><br>
+                    <%= sort_link(@ransack_courses, :average_rating, 'Top rated') %><br>
+                    <%= sort_link(@ransack_courses, :enrollments_count, 'Most popular') %><br>
+                    <%= sort_link(@ransack_courses, :created_at, 'Newest') %><br>
+
                     <%= f.submit class:'btn btn-sm btn-success form-control form-control-sm mt-3'%>
                     <br>
                     <%= link_to @ransack_path, class:'btn btn-sm btn-secondary mt-1' do %>
