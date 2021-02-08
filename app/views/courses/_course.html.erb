@@ -6,19 +6,23 @@
         <p class="card-text"><%= course.short_description %></p>
     </div>
     <div class="card-footer text-center">
+        <%
+=begin%>
         <%= enrollment_button(course) %><br>
+        <%
+=end%>
         <%= review_button(course) %>
     </div>
 
     <div class="<%= 'd-flex justify-content-between' if current_page?(course_path(course))%> card-footer text-center">
         <p class="mb-1"><span class="text-warning fa fa-star mr-1"><%= course.average_rating %></span>
-            (<%= review_count(course)%> reviews)
-            - <%= course.enrollments_count %> students
+            (<%= pluralize(review_count(course), 'review')%>)
+            - <%= pluralize(course.enrollments_count, 'student') %>
         </p>
         <p>
             <i class="fas fa-tasks mr-1"></i>
-            <%=  course.lessons_count %>
-            Lessons
+            <%=  pluralize(course.lessons_count, 'lesson') %>
+
         </p>
         <p class="">
             <i class="fas fa-chalkboard-teacher mr-1"></i><%= link_to course.user.username, user_path(course.user) %>
@@ -29,6 +33,9 @@
 
     <% if current_user && policy(course).edit? %>
     <div class="card-footer">
+        <% if policy(course).owner? %>
+        <%= link_to 'Add lesson', new_course_lesson_path(course, @lesson), class:"btn btn-small btn-primary" %>
+        <% end %>
         <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning" %>
         <% if policy(course).destroy? %>
         <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-small btn-danger"%>

@@ -6,18 +6,70 @@
     <div class="col-12">
         <%= link_to 'Courses', courses_path %> /
         <%= link_to @course.title , course_path(@course) %>
-        <div class="row">
-            <div class="col-md-6">
-                <%= render 'courses/course', course: @course %>
+        <div class="row mt-3">
+            <div class="col-md-8 order-1 order-lg-0">
+                <div class="jumbotron">
+                    <h3 class="mb-3">
+                        <i class="fa fa-graduation-cap"></i>
+                        <%= @course.title%>
+                    </h3>
+                    <i class="fa fa-clock"></i>
+                    <%= @course.created_at.strftime('%m/%Y')%>
+                    <br>
+
+                    <i class="fa fa-globe-africa"></i>
+                    <%= @course.language%>
+
+                    <br>
+                    <i class="fa fa-signal"></i>
+                    <%= @course.level%>
+
+                    <br>
+                    <div class="row mt-3">
+                        <%= @course.description%>
+                    </div>
+                </div>
+                <div>
+                    <h4>
+                        <i class="fa fa-tasks"></i>
+                        <%= pluralize(@course.lessons.count, 'Lesson' ) %>
+                        <% if current_user != @course.user %>
+                        <span class="float-right">
+                            <i class="fa fa-spinner"></i>
+                            <%= number_to_percentage(@course.progress(current_user), precision: 0) %>
+                        </span>
+                        <% end %>
+                    </h4>
+
+                    <ul class="list-group">
+                        <% @lessons.each do |lesson| %>
+                        <%= link_to course_lesson_path(lesson.course, lesson) do %>
+                        <li class="list-group-item">
+                            <%= render 'lessons/lesson_preview', lesson: lesson %>
+                        </li>
+                        <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+                <div class="mt-5">
+                    <h4>
+                        <i class="fa fa-comment"></i>
+                        <%= pluralize(@enrollments_with_review.count, 'Review') %>
+                    </h4>
+                    <% @enrollments_with_review.each do |enrollment| %>
+                    <div class="mb-3">
+                        <%= render 'enrollments/enrollment', enrollment: enrollment %>
+                    </div>
+                    <% end %>
+                </div>
+
             </div>
-            <div class="col-md-6">
-                <% if policy(@course).owner? %>
-                <%= link_to 'Add Lesson', new_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-block btn-primary mb-3' %>
-                <% end %>
-                Lessons:
-                <% @lessons.each do |lesson| %>
-                <%= render 'lessons/lesson', lesson: lesson %>
-                <% end %>
+
+
+            <div class="col-md-4 order-0 order-lg-1">
+                <div class="sticky-top">
+                    <%= render 'courses/course', course: @course %>
+                </div>
             </div>
         </div>
     </div>

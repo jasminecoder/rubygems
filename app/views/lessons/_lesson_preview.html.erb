@@ -1,0 +1,12 @@
+<% if lesson.viewed(current_user) && lesson.course.user_id != current_user.id %>
+<i class="text-primary far fa-check-square"></i>
+<% else %>
+<i class="far fa-square"></i>
+<% end %>
+<%= lesson.title %>
+<div class="float-right">
+    <% if current_user && policy(lesson).edit? %>
+    <%= link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning' %>
+    <%= link_to 'Delete', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+</div>
+<% end %>

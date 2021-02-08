@@ -12,8 +12,26 @@ Lesson <%= @lesson.title %>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <%= render 'lessons/lesson', lesson: @lesson %>
-        <%= link_to 'Back to course', course_path(@lesson.course) %>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <i class="fas fa-graduation-cap mr-1"></i><%= link_to @lesson.course.title, course_path(@lesson.course) %>
+                <span class="float-right">
+                    <%= "<i class='fa fa-spinner'></i>".html_safe + " " +
+                number_to_percentage(@lesson.course.progress(current_user), precision: 0) %>
+                </span>
+            </li>
+            <% @lessons.each do |lesson| %>
+            <%= link_to course_lesson_path(lesson.course, lesson) do %>
+            <li class="list-group-item <%= 'list-group-item-success' if @lesson.present? && @lesson == lesson %>">
+                <%= render 'lessons/lesson_preview', lesson: lesson %>
+            </li>
+
+            <%end %>
+            <% end %>
+        </ul>
     </div>
 </div>
