@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-md-12 my-5">
+        <h3>New users</h3>
+        <div class="my-5">
+            <%= line_chart @users.group_by_day(:created_at).count %>
+        </div>
+        <div class="my-5">
+            <h3>New enrollments</h3>
+            <%= column_chart @enrollments.group_by_day(:created_at).count %>
+        </div>
+        <div class="my-5">
+            <h3>Course popularity</h3>
+            <%= bar_chart @enrollments.joins(:course).group(:'courses.title').count %>
+
+
+        </div>
+
+    </div>
+</div>

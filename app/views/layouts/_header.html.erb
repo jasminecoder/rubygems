@@ -185,6 +185,17 @@
                         <% end %>
 
 
+                        <%= link_to analytics_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-chart-line"></i> Analytics
+                            </div>
+                            <div class="badge badge-danger ml-auto">
+                            </div>
+                        </div>
+                        <% end %>
+
+
                         <div class="dropdown-divider"></div>
                         <%= link_to raw('<i class="fas fa-sign-out-alt"></i> Sign out'), destroy_user_session_path, method: :delete, class:"dropdown-item small" %>
                     </div>
