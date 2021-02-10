@@ -8,6 +8,8 @@ Lesson <%= @lesson.title %>
         <%= link_to @lesson.course.title, course_path(@lesson.course) %>
         <span class="mx-1 text-primary"> / </span>
         <%= link_to @lesson.title, course_lesson_path(@course, @lesson) %>
+        <p><%= @lesson.user_lessons.where(user: current_user).first.impressions %></p>
+
     </div>
 </div>
 
