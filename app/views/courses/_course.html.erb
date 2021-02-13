@@ -5,12 +5,16 @@
     <div class="card-body">
         <p class="card-text"><%= course.short_description %></p>
     </div>
+
+    <%= if current_page?(course_path(course)) do %>
+    <div class="card-body">
+        <p class="card-text"><%= course.description %></p>
+    </div>
+    <% end %>
+    <%end%>
+
+
     <div class="card-footer text-center">
-        <%
-=begin%>
-        <%= enrollment_button(course) %><br>
-        <%
-=end%>
         <%= review_button(course) %>
     </div>
 
@@ -39,6 +43,32 @@
         <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning" %>
         <% if policy(course).destroy? %>
         <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-small btn-danger"%>
+        <% end %>
+    </div>
+    <% end %>
+
+    <% if current_user && policy(course).destroy? %>
+    <div class="card-footer">
+        <% if course.published? %>
+        <div class="badge badge-success">Published</div>
+        <% else %>
+        <div class="badge badge-danger">Unpublished</div>
+        <% end %>
+
+        <% if course.approved? %>
+        <div class="badge badge-success">Approved</div>
+        <% else %>
+        <div class="badge badge-danger">Unapproved</div>
+        <% end %>
+    </div>
+    <% end %>
+
+    <% if current_user && policy(course).approve? %>
+    <div class="card-footer">
+        <% if course.approved? %>
+        <%= link_to 'Unapprove', unapprove_course_path(course), method: :patch, class:'btn btn-sm btn-danger' %>
+        <% else %>
+        <%= link_to 'Approve', approve_course_path(course), method: :patch, class:'btn btn-sm btn-success' %>
         <% end %>
     </div>
     <% end %>

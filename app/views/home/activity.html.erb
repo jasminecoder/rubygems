@@ -2,25 +2,58 @@
 Activity - Courses
 <% end %>
 
-
 <div class="row">
     <div class="col-md-12">
-        <p class="lead">Activity <span class="badge badge-info"><%= @activities.count %> </span></p>
-        <ul class="list-group">
-            <% @activities.each do |activity| %>
-            <li class="list-group-item">
-                trackable_id same as Course id:<%= activity.trackable_id %> |
-                trackable_type: <%= activity.trackable_type %> |
-                owner: <%= activity.owner_type %> |
-                <%
-=begin%>
-                trackable: <%= link_to activity.trackable, activity.trackable %> |
-                <%
-=end%>
-                key: <%= activity.key %> |
-                parameters: <%= activity.parameters %> |
-                created at:<%= activity.created_at %>
-            </li>
-            <% end %>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="lead">Activity <span class="badge badge-info"><%= @pagy.count %> </span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <%== pagy_bootstrap_nav(@pagy) %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    <% @activities.each do |activity| %>
+                    <li class="list-group-item">
+                        <%= activity.created_at.strftime('%d-%m-%Y %H:%m') %>
+                        <%= time_ago_in_words(activity.created_at) %>|
+                        <%= activity.key %>
+                        <%= crud_label(activity.key.match(/\.(.*)/)[1]) %>|
+
+
+                        <% if activity.trackable_type == "Lesson" %>
+                        <% if Lesson.where(id: activity.trackable_id).present? %>
+                        <%= model_label(activity.trackable_type)%>
+                        <%= link_to activity.trackable_type, course_lesson_path(activity.trackable.course, activity.trackable) %>
+                        <% else %>
+                        Lesson was deleted |
+                        <% end %>
+                        <% else %>
+                        <%= model_label(activity.trackable_type)%>
+
+                        <%= link_to activity.trackable, activity.trackable %>
+                        <% end %>
+
+                        by <%= link_to activity.owner, user_path(activity.owner) %>
+                        <% if activity.parameters.any? %>
+                        <%= activity.parameters %> |
+                        <% end %>
+                    </li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <%== pagy_bootstrap_nav(@pagy) %>
+            </div>
+        </div>
     </div>
+</div>
 </div>

@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove]
 
   # GET /courses
   # GET /courses.json
@@ -10,11 +10,12 @@ class CoursesController < ApplicationController
     #else
       # @courses = Course.all
       #@q = Course.ransack(params[:q])
-      # @courses = @q.result(distinct: true)
+      # @courses = @q.result (distinct: true)
       #@courses = @q.result.includes(:user)
       @ransack_path = courses_path
-      @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+      @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
       # @courses = @ransack_courses.result.includes(:user)
+
       @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
    # end
   end
@@ -43,7 +44,27 @@ class CoursesController < ApplicationController
     render 'index'
   end
 
+  def unapproved
+    @ransack_path = unapproved_courses_path
+    @ransack_courses = Course.unapproved.ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    render 'index'
+  end
+
+  def approve
+    authorize @course, :approve?
+    @course.update(approved: true)
+    redirect_to @course, notice: 'Course approved'
+  end
+  
+  def unapprove
+    authorize @course, :approve?
+    @course.update(approved: false)
+    redirect_to @course, notice: 'Course unapproved and hidden'
+  end
+
   def show
+    authorize @course
     @lessons = @course.lessons
     @enrollments_with_review = @course.enrollments.reviewed
   end
@@ -114,6 +135,6 @@ class CoursesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:title, :description, :short_description, :language, :level, :price)
+      params.require(:course).permit(:title, :description, :short_description, :language, :level, :price, :published, :approved)
     end
 end

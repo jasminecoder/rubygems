@@ -152,6 +152,17 @@
                         <i class="fas fa-cog mr-1"></i><b>Admin</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                        <%= link_to unapproved_courses_path, class:"nav-link" do %>
+                        <div class="d-flex">
+                            <div class="small">
+                                <i class="fas fa-user"></i> Unapproved courses
+                            </div>
+                            <div class="badge badge-danger ml-auto">
+                                <%= Course.unapproved.size %>
+                            </div>
+                        </div>
+                        <% end %>
+
                         <%= link_to users_path, class:"nav-link" do %>
                         <div class="d-flex">
                             <div class="small">

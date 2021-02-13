@@ -13,6 +13,10 @@ class Course < ApplicationRecord
     scope :latest, -> { order(created_at: :desc).limit(3) }
     scope :popular, -> { order(enrollments_count: :desc, created_at: :desc ).limit(3) }
     scope :top_rated, -> { order(average_rating: :desc, created_at: :desc ).limit(3) }
+    scope :published, -> { where(published: true) }
+    scope :unpublished, -> { where(published: false) }
+    scope :approved, -> { where(approved: true) }
+    scope :unapproved, -> { where(approved: false) }
      
 
     LANGUAGES = [:"English", :"Spanish", :"French", :"Italian"]

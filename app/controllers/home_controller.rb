@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
   def activity 
     if current_user.has_role?(:admin)
-    @activities = PublicActivity::Activity.all.sort_by(&:created_at).reverse
+    @pagy, @activities = pagy(PublicActivity::Activity.all.order(created_at: :desc))
     else  
       redirect_to root_path, alert: 'You are not authorized to access this page'
     end
