@@ -4,7 +4,11 @@
 
 <div class="row">
     <div class="col-12">
+        <% if current_user %>
         <%= link_to 'Courses', courses_path %> /
+        <% else %>
+        <%= link_to 'Courses', home_index_path %> /
+        <% end %>
         <%= link_to @course.title , course_path(@course) %>
         <div class="row mt-3">
             <div class="col-md-8 order-1 order-lg-0">

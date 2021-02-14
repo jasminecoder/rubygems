@@ -20,7 +20,7 @@ Courses - Online Courses - Learn Anything On Your Schedule
                 <% end %>
             </div>
 
-            <div class="card-group">
+            <div class="card-group mb-5">
                 <div class="card card-body">
                     <h1>
                         <div class="fa fa-graduation-cap"></div>
@@ -56,7 +56,8 @@ Courses - Online Courses - Learn Anything On Your Schedule
             </div>
 
             <div class="text-left">
-                <hr>
+
+                <% if current_user %>
                 <i class="fa fa-user-graduate"></i>
                 <span class="lead">Continue learning</span>
                 <div class="card-columns">
@@ -64,7 +65,12 @@ Courses - Online Courses - Learn Anything On Your Schedule
                     <%= render 'courses/course', course: course %>
                     <% end %>
                 </div>
-                <hr>
+                <div class='text-right'>
+                    <%= link_to 'All my purchased courses', purchased_courses_path %>
+                </div>
+                <hr class="my-5">
+                <% end %>
+
                 <i class="fa fa-chart-line"></i>
                 <span class="lead">Popular courses</span>
                 <div class="card-columns">
@@ -72,7 +78,13 @@ Courses - Online Courses - Learn Anything On Your Schedule
                     <%= render 'courses/course', course: course %>
                     <% end %>
                 </div>
-                <hr>
+
+                <div class='text-right'>
+                    <%= link_to 'More popular courses', courses_path(courses_search: {s: 'enrollments_count desc'}) %>
+
+                </div>
+                <hr class="my-5">
+
 
                 <i class="fa fa-star"></i>
                 <span class="lead">Top rated courses</span>
@@ -81,7 +93,11 @@ Courses - Online Courses - Learn Anything On Your Schedule
                     <%= render 'courses/course', course: course %>
                     <% end %>
                 </div>
-                <hr>
+                <div class='text-right'>
+                    <%= link_to 'Best rated courses', courses_path(courses_search: {s: 'average_rating desc'}) %>
+                </div>
+                <hr class="my-5">
+
                 <i class="fa fa-clock"></i>
                 <span class="lead">Latest courses</span>
                 <div class="card-columns">
@@ -89,7 +105,10 @@ Courses - Online Courses - Learn Anything On Your Schedule
                     <%= render 'courses/course', course: course %>
                     <% end %>
                 </div>
-                <hr>
+                <div class='text-right'>
+                    <%= link_to 'More new courses', courses_path(courses_search: {s: 'created_at desc'}) %>
+                </div>
+                <hr class="my-5">
                 <i class="fa fa-comment"></i>
                 <span class="lead">What other students are saying</span>
                 <div class="card-columns">
