@@ -41,19 +41,22 @@
 
 
 
-    <% if current_user && policy(course).edit? %>
+    <% if current_user && policy(course).owner? %>
     <div class="card-footer">
-        <% if policy(course).owner? %>
         <%= link_to 'Add lesson', new_course_lesson_path(course, @lesson), class:"btn btn-small btn-primary" %>
-        <% end %>
         <%= link_to 'Edit', edit_course_path(course), class:"btn btn-small btn-warning" %>
         <% if policy(course).destroy? %>
         <%= link_to 'Delete', course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-small btn-danger"%>
         <% end %>
+
+        <%= link_to analytics_course_path(course), class:"btn btn-small btn-info" do %>
+        <i class="fa fa-chart-line"></i>
+        Analytics
+        <% end %>
     </div>
     <% end %>
 
-    <% if current_user && policy(course).destroy? %>
+    <% if current_user && policy(course).admin_or_owner?%>
     <div class="card-footer">
         <% if course.published? %>
         <div class="badge badge-success">Published</div>
@@ -78,4 +81,5 @@
         <% end %>
     </div>
     <% end %>
+
 </div>

@@ -45,12 +45,15 @@
                         <% end %>
                     </h4>
 
-                    <ul class="list-group">
+                    <ul class="list-group lesson-sortable">
                         <% @lessons.each do |lesson| %>
-                        <%= link_to course_lesson_path(lesson.course, lesson) do %>
-                        <li class="list-group-item">
+                        <%= content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do %>
+                        <%= link_to course_lesson_path(@course, lesson) do %>
+                        <div class="list-group-item pb-4">
+                            <i class="fa fa-sort.all-scroll<%= {:style => "cursor: grab;"} %>"></i>
                             <%= render 'lessons/lesson_preview', lesson: lesson %>
-                        </li>
+                        </div>
+                        <% end %>
                         <% end %>
                         <% end %>
                     </ul>

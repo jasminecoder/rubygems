@@ -20,4 +20,18 @@
         <%= link_to 'Delete', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
     </div>
     <% end %>
+    <% if current_user && policy(lesson).show? %>
+    <div class="card-footer">
+        <% unless lesson.prev.nil? %>
+        <i class="text-primary fa fa-arrow-left"></i>
+        <%= link_to 'Previous', course_lesson_path(@course, lesson.prev), class:'mr-5' %>
+        <% end %>
+        <% unless lesson.next.nil? %>
+        <%= link_to 'Next', course_lesson_path(@course, lesson.next) %>
+        <i class="text-primary fa fa-arrow-right"></i>
+        <% end %>
+    </div>
+    <% end %>
+
+
 </div>

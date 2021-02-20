@@ -5,7 +5,6 @@ body {
 .nav-item a:hover,
 a:hover {
   background-color: transparent;
-  // color: rgb(0, 0, 255);
 }
 
 a:visited {
@@ -29,11 +28,8 @@ a.btn:visited {
 }
 
 ul.pagination {
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
-
-.ui-state-highlight {
-  height: 3em;
-  line-height: 1.2em;
-  background-color: yellow;
-}
+/*# sourceMappingURL=application.css.map */

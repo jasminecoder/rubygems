@@ -1,0 +1,31 @@
+<%= link_to 'Courses', courses_path %> |
+<%= link_to @course.title, course_path(@course) %> |
+<%= link_to analytics_course_path(@course) do %>
+<i class="fa fa-chart-line"></i> Analytics
+<% end %>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h3>Analytics for <%=@course.title %></h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="my-5">
+            <h3>New enrollments</h3>
+            <%= line_chart @course.enrollments.group_by_day(:created_at).count %>
+        </div>
+        <div class="my-5">
+            <h3>Money per day</h3>
+            <%= line_chart @course.enrollments.group_by_day(:created_at).sum(:price) %>
+        </div>
+        <div class="my-5">
+            <h3>Unique user views</h3>
+            <%= bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').count %>
+        </div>
+        <div class="my-5">
+            <h3>Impressions per lesson</h3>
+            <%= bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions) %>
+        </div>
+    </div>
+</div>

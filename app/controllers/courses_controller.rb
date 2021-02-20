@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove, :analytics]
   skip_before_action :authenticate_user!, :only => [:show]
 
   # GET /courses
@@ -64,9 +64,13 @@ class CoursesController < ApplicationController
     redirect_to @course, notice: 'Course unapproved and hidden'
   end
 
+  def analytics 
+    authorize @course, :destroy?
+  end
+
   def show
     authorize @course
-    @lessons = @course.lessons
+    @lessons = @course.lessons.rank(:row_order).all
     @enrollments_with_review = @course.enrollments.reviewed
   end
 
