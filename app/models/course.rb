@@ -7,6 +7,12 @@ class Course < ApplicationRecord
     has_many :lessons, dependent: :destroy
     has_many :enrollments, dependent: :restrict_with_error
     has_many :user_lessons, through: :lessons
+
+    has_one_attached :avatar
+    validates :avatar, attached: true, 
+                       content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+                       size: { less_than: 500.kilobytes , message: 'File size needs to be under 500 KB' }
+    
     extend FriendlyId
     friendly_id :title, use: :slugged
     
