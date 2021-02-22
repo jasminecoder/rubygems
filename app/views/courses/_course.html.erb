@@ -1,6 +1,8 @@
 <div class="card">
     <% if course.avatar.attached? %>
+
     <%= image_tag course.avatar, class:'card-img-top' %>
+
     <% end %>
     <div class="card-header">
         <h5 class="card-title"><i class="fas fa-graduation-cap mr-1"></i><%= link_to course.title, course %></h5>
