@@ -1,7 +1,9 @@
 class Course < ApplicationRecord
     validates :title, :short_description, :language, :level, :price, presence: true
-    validates :description, presence: true, length: {:minimum => 5}
-    validates :title, uniqueness: true
+    validates :description, length: {:minimum => 5 }
+    validates :short_description, length: {:maximum => 300 }
+    validates :title, uniqueness: true, length: { :maximum => 70 }
+    validates :price, numericality: {greater_than_or_equal_to: 0 }
     has_rich_text :description
     belongs_to :user, counter_cache: true
     has_many :lessons, dependent: :destroy
@@ -9,12 +11,17 @@ class Course < ApplicationRecord
     has_many :user_lessons, through: :lessons
 
     has_one_attached :avatar
-    validates :avatar, attached: true, 
-                       content_type: ['image/png', 'image/jpg', 'image/jpeg'],
-                       size: { less_than: 500.kilobytes , message: 'File size needs to be under 500 KB' }
+    validates :avatar, presence: true,
+                content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+                size: { less_than: 500.kilobytes , message: 'File size needs to be under 500 KB' }
+    
+                # validates :avatar, attached: true, 
+    #                    content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+    #                    size: { less_than: 500.kilobytes , message: 'File size needs to be under 500 KB' }
     
     extend FriendlyId
     friendly_id :title, use: :slugged
+
     
     scope :latest, -> { order(created_at: :desc).limit(3) }
     scope :popular, -> { order(enrollments_count: :desc, created_at: :desc ).limit(3) }
