@@ -3,15 +3,18 @@
 <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
 <div class="form-inputs">
-    <%= f.input :title %>
+    <%= f.input :title, input_html: { autocomplete: 'off' } %>
     <%= f.label :content %>
     <%= f.rich_text_area :content %>
     <small><%=  f.error :content, class:'text-danger' %></small>
-    <%
-=begin%>
-    <%= f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden %>
-    <%
-=end%>
+    <% if @lesson.video.attached? %>
+    <%= @lesson.video.filename %>
+    <% end %>
+    <%= f.input :video %>
+    <% if @lesson.video_thumbnail.attached? %>
+    <%= @lesson.video_thumbnail.filename %>
+    <% end %>
+    <%= f.input :video_thumbnail %>
 </div>
 
 <div class="form-actions my-3">

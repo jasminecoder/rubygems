@@ -12,6 +12,17 @@
     <% if policy(lesson).show? %>
     <div class="card-body">
         <%= lesson.content %><br>
+        <% if @lesson.video.attached? %>
+        <% if @lesson.video_thumbnail.attached? %>
+        <video controls="true" poster="<%= "#{url_for @lesson.video_thumbnail}" %>" width="10%" preload="metadata">
+            <source src="<%= rails_blob_url(@lesson.video) %>" type="<%= @lesson.video.content_type %>">
+        </video>
+        <% else %>
+        <video controls="true" width="10%" preload="metadata">
+            <source src="<%= rails_blob_url(@lesson.video) %>" type="<%= @lesson.video.content_type %>">
+        </video>
+        <% end %>
+        <% end %>
     </div>
     <% end %>
     <% if current_user && policy(lesson).edit? %>
