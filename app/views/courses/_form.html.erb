@@ -12,11 +12,22 @@
     <%= f.input :avatar %>
 
     <%= f.input :short_description %>
+
+
+    <%
+=begin%>
     <%= f.label :description %>
     <%= f.rich_text_area :description %>
     <small>
         <%=  f.error :description, class:'text-danger d-inline' %>
     </small>
+    <%
+=end%>
+
+
+
+    <%= f.input :description, as: :rich_text_area %>
+
     <%= f.input :language, collection: Course.languages %>
     <%= f.input :level, collection: Course.levels %>
     <%= f.input :price %>

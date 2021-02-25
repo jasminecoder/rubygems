@@ -19,3 +19,7 @@
 @import "font-awesome";
 // application.scss
 @import "./actiontext.scss";
+
+trix-editor.form-control {
+  height: auto;
+}

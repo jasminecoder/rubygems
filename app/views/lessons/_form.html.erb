@@ -4,16 +4,47 @@
 
 <div class="form-inputs">
     <%= f.input :title, input_html: { autocomplete: 'off' } %>
+
+
+    <%
+=begin%>
     <%= f.label :content %>
     <%= f.rich_text_area :content %>
     <small><%=  f.error :content, class:'text-danger' %></small>
+    <%
+=end%>
+
+    <%= f.input :content, as: :rich_text_area %>
+
+
     <% if @lesson.video.attached? %>
+
+    <% if @lesson.video_thumbnail.attached? %>
+    <video controls="true" poster="<%= "#{url_for @lesson.video_thumbnail}" %>" width="10%" preload="metadata">
+        <source src="<%= rails_blob_url(@lesson.video) %>" type="<%= @lesson.video.content_type %>">
+    </video>
+    <br>
     <%= @lesson.video.filename %>
+    <br>
+    <%= link_to 'Remove video and thumbnail', delete_video_course_lesson_path(@course, @lesson), method: :delete, data: { confirm: 'Are you sure?'} %>
+
+    <% else %>
+    <video controls="true" width="10%" preload="metadata">
+        <source src="<%= rails_blob_url(@lesson.video) %>" type="<%= @lesson.video.content_type %>">
+    </video>
+    <br>
+    <%= @lesson.video.filename %>
+    <br>
+    <%= link_to 'Remove video', delete_video_course_lesson_path(@course, @lesson), method: :delete, data: { confirm: 'Are you sure?'} %>
     <% end %>
+    <% end %>
+    <br>
+    <br>
     <%= f.input :video %>
     <% if @lesson.video_thumbnail.attached? %>
     <%= @lesson.video_thumbnail.filename %>
     <% end %>
+    <br><br>
     <%= f.input :video_thumbnail %>
 </div>
 

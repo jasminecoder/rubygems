@@ -3,6 +3,18 @@
     <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]) %>
     <% end %>
 
+    <% if blob.video? %>
+    <video controls="true" width="100%" preload="metadata">
+        <source src="<%= rails_blob_url(blob) %>" type="<%= blob.content_type %>">
+    </video>
+    <% end %>
+
+    <% if blob.audio? %>
+    <audio controls>
+        <source src="<%= rails_blob_url(blob) %>" , type="<%= "#{blob.content_type}" %>">
+    </audio>
+    <% end %>
+
     <figcaption class="attachment__caption">
         <% if caption = blob.try(:caption) %>
         <%= caption %>
