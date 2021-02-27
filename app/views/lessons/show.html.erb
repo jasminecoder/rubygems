@@ -16,6 +16,18 @@ Lesson <%= @lesson.title %>
 <div class="row">
     <div class="col-md-8">
         <%= render 'lessons/lesson', lesson: @lesson %>
+        Comments:
+        <%= @comments.count %>
+        <% @comments.each do |comment| %>
+        <div class="mt-3">
+            <%= render 'lessons/comments/comment', comment: comment %>
+        </div>
+        <% end %>
+        <br>
+        <hr>
+        New comment:
+        <%= render 'lessons/comments/form' %>
+
     </div>
     <div class="col-md-4">
         <ul class="list-group">
@@ -31,7 +43,6 @@ Lesson <%= @lesson.title %>
             <li class="list-group-item <%= 'list-group-item-success' if @lesson.present? && @lesson == lesson %>">
                 <%= render 'lessons/lesson_preview', lesson: lesson %>
             </li>
-
             <%end %>
             <% end %>
         </ul>

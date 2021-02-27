@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
     resources :lessons
     resources :lessons do
+      resources :comments, except: [:index]
       put :sort
       member do
         delete :delete_video
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     end
     resources :enrollments, only: [:new, :create]
   end
+  resources :youtube, only: :show
   resources :users, only: [:index, :edit, :show, :update]
   get 'home/index'
   root 'home#index'

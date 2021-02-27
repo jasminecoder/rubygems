@@ -11,7 +11,10 @@ module Rubygems
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    config.after_initialize do
+    # config.after_initialize do
+    config.to_prepare do  
+      ActionText::ContentHelper.allowed_tags << "iframe" #youtube embed
+      
       ActionText::ContentHelper.allowed_attributes.add 'style'
       ActionText::ContentHelper.allowed_attributes.add 'controls'
     
