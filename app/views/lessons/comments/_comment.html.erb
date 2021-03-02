@@ -3,7 +3,14 @@
         <%= comment.content %>
     </div>
     <div class="card-footer">
-        <%= comment.user %>
-        <%= comment.created_at %>
+        <small>
+            by
+            <%= link_to comment.user, user_path(comment.user) %>
+            <br>
+            <div class="text-secondary">
+                <%= comment.created_at.strftime('%b. %d, %Y') %>
+                (<%= time_ago_in_words(comment.created_at) %> ago)
+            </div>
+        </small>
     </div>
 </div>

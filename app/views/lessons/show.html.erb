@@ -16,8 +16,20 @@ Lesson <%= @lesson.title %>
 <div class="row">
     <div class="col-md-8">
         <%= render 'lessons/lesson', lesson: @lesson %>
-        Comments:
-        <%= @comments.count %>
+        <i class="fa fa-comment"></i>
+        Comments: <%= @comments.count %>
+        <div class="card">
+            <div class="card-header">
+                New comment:
+            </div>
+            <div class="card-body">
+                <%= render 'lessons/comments/form' %>
+            </div>
+        </div>
+
+        <br>
+        <hr>
+
         <% @comments.each do |comment| %>
         <div class="mt-3">
             <%= render 'lessons/comments/comment', comment: comment %>
@@ -25,8 +37,7 @@ Lesson <%= @lesson.title %>
         <% end %>
         <br>
         <hr>
-        New comment:
-        <%= render 'lessons/comments/form' %>
+
 
     </div>
     <div class="col-md-4">
