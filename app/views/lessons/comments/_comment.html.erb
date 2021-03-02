@@ -12,11 +12,13 @@
             <div class="text-secondary">
                 <%= comment.created_at.strftime('%b. %d, %Y') %>
                 (<%= time_ago_in_words(comment.created_at) %> ago)
+                <% if policy(comment).destroy? %>
                 <div class="float-right">
                     <%= link_to course_lesson_comment_path(@course, @lesson, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do %>
                     <i class="fa fa-trash"></i>
                     <% end %>
                 </div>
+                <% end %>
             </div>
         </small>
     </div>
