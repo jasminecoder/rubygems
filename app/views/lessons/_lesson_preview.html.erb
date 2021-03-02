@@ -9,7 +9,17 @@
     <%=  lesson.title %>
 
     <div class="float-right">
+        <i class="fa fa-comment"></i>
+        <%= lesson.comments_count %>|
         <% if current_user && policy(lesson).edit? %>
+        <i class="fa fa-eye"></i>
+        Impressions:
+        <%= lesson.user_lessons.map(&:impressions).sum %>|
+
+        <i class="fa fa-eye"></i>
+        Unique viewers:
+        <%= lesson.user_lessons.count %>
+
         <%= link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning' %>
         <%= link_to 'Delete', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
     </div>
