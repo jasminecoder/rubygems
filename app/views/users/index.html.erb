@@ -47,6 +47,8 @@ All users - Courses
                 <th scope="col"><%= 'last_sign_in_ip'.humanize %></th>
                 <th scope="col"><%= 'courses_count'.humanize %></th>
                 <th scope="col"><%= 'enrollments_count'.humanize %></th>
+                <th scope="col"><%= sort_link(@q, :comments_count) %>
+                <th scope="col"><%= sort_link(@q, :user_lessons_count) %>
                 <th scope="col">Confirmed email?</th>
                 <th scope="col">Roles</th>
             </tr>
@@ -72,6 +74,8 @@ All users - Courses
                 <td scope="row"><%= user.last_sign_in_ip %></td>
                 <td scope="row"><%= user.courses_count %></td>
                 <td scope="row"><%= user.enrollments_count %></td>
+                <td scope="row"><%= user.comments_count %></td>
+                <td scope="row"><%= user.user_lessons_count %></td>
                 <td scope="row"><%= user.confirmed? %></td>
                 <td scope="row">
                     <% user.roles.each do |role| %>
