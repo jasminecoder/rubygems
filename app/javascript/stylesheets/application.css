@@ -1,5 +1,6 @@
 body {
   color: #333;
+  background-color: #f8f0e6;
 }
 
 .nav-item a:hover,
@@ -31,5 +32,11 @@ ul.pagination {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.ui-state-highlight {
+  height: 3em;
+  line-height: 1.2em;
+  background-color: yellow;
 }
 /*# sourceMappingURL=application.css.map */

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'activity', to: 'home#activity'
   get 'analytics', to: 'home#analytics'
+  get 'privacy_policy', to: 'home#privacy_policy'
   # get 'charts/users_per_day', to: 'charts#users_per_day'
   # get 'charts/enrollments_per_day', to: 'charts#enrollments_per_day'
   # get 'charts/course_popularity', to: 'charts#course_popularity'

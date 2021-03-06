@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:index]
+  skip_before_action :authenticate_user!, :only => [:index, :privacy_policy]
   
   def index
     @courses = Course.all.limit(3)
@@ -17,6 +17,9 @@ class HomeController < ApplicationController
     else  
       redirect_to root_path, alert: 'You are not authorized to access this page'
     end
+  end
+
+  def privacy_policy
   end
 
   def analytics
