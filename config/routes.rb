@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { registrations: 'users/registrations'}
+
+  resources :tags, only: :create
   resources :courses do 
     get :purchased, :pending_review, :created, :unapproved, on: :collection
     member do

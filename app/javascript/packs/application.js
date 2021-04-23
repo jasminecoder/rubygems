@@ -4,13 +4,14 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs";
-import Turbolinks from "turbolinks";
+// import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 import "youtube";
 
 Rails.start();
-Turbolinks.start();
+// Turbolinks.start();
+require("turbolinks").start();
 ActiveStorage.start();
 
 import "bootstrap/dist/js/bootstrap";
@@ -24,6 +25,8 @@ require("chart.js");
 
 require("jquery");
 require("jquery-ui-dist/jquery-ui");
+
+require("selectize");
 
 import "../trix-editor-overrides";
 
@@ -51,5 +54,20 @@ $(document).on("turbolinks:load", function () {
 
   $("video").bind("contextmenu", function () {
     return false;
+  });
+
+  if ($(".selectize")) {
+    $(".selectize").selectize({
+      sortField: "text",
+    });
+  }
+
+  $(".selectize-tags").selectize({
+    create: function (input, callback) {
+      $.post("/tags.json", { tag: { name: input } }).done(function (response) {
+        console.log(response);
+        callback({ value: response.id, text: response.name });
+      });
+    },
   });
 });

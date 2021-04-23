@@ -11,6 +11,7 @@
         <p class="card-text"><%= course.short_description %></p>
     </div>
 
+
     <%= if current_page?(course_path(course)) do %>
     <div class="card-body">
         <p class="card-text"><%= course.description %></p>
@@ -76,6 +77,12 @@
         <% end %>
     </div>
     <% end %>
+
+    <div class="card-body border">
+        <% course.tags.each do |tag| %>
+        <div class="badge badge-info m-1"><%= tag.name %></div>
+        <% end %>
+    </div>
 
     <% if current_user && policy(course).approve? %>
     <div class="card-footer">

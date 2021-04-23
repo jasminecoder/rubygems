@@ -4,6 +4,18 @@
 
 <div class="form-inputs">
     <%= f.input :title %>
+    <%
+=begin%>
+    <%= f.input :tag_ids %>
+    <%
+=end%>
+    <%
+=begin%>
+    <%= f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize" } %>
+    <%
+=end%>
+    <%= f.select :tag_ids, @tags.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }%>
+
     <% if course.avatar.attached? %>
     <%= f.label :avatar %> <br>
     <%= image_tag course.avatar, width:'200px' %><br>

@@ -11,6 +11,8 @@
                     <%= search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f| %>
                     <%= f.label :title %>
                     <%= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm' %><br>
+                    <%= f.label :tag %>
+                    <%=  f.search_field :course_tags_tag_name_cont, placeholder: 'Tag name', class: 'form-control form-control-sm' %>
                     <%= f.label :description %>
                     <%= f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm' %><br>
                     <%= f.label :language %>
@@ -27,6 +29,19 @@
                     <%= sort_link(@ransack_courses, :average_rating, 'Top rated') %><br>
                     <%= sort_link(@ransack_courses, :enrollments_count, 'Most popular') %><br>
                     <%= sort_link(@ransack_courses, :created_at, 'Newest') %><br>
+
+                    <div class="row">
+                        <% @tags.all.order(course_tags_count: :desc).each do |tag| %>
+                        <%= link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do %>
+                        <div class="badge badge-info m-1">
+                            <%= tag.name %>
+                            <%= tag.course_tags_count %>
+                        </div>
+                        <% end %>
+                        <% end %>
+                    </div>
+
+
 
                     <%= f.submit class:'btn btn-sm btn-success form-control form-control-sm mt-3'%>
                     <br>
