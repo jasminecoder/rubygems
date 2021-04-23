@@ -17,7 +17,8 @@ class CoursesController < ApplicationController
       @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
       # @courses = @ransack_courses.result.includes(:user)
 
-      @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+      @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+      @tags = Tag.all.where.not(course_tags_count: 0)
    # end
   end
 
@@ -27,28 +28,32 @@ class CoursesController < ApplicationController
   def purchased
     @ransack_path = purchased_courses_path
     @ransack_courses = Course.joins(:enrollments).where(enrollments: {user: current_user}).ransack(params[:courses_search], search_key: :courses_search)
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user,:course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0)
     render 'index'
   end
 
   def pending_review 
     @ransack_path = pending_review_courses_path
     @ransack_courses = Course.joins(:enrollments).merge(Enrollment.pending_review.where(user: current_user)).ransack(params[:courses_search], search_key: :courses_search)
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0)
     render 'index'
   end
 
   def created
     @ransack_path = created_courses_path
     @ransack_courses = Course.where(user: current_user).ransack(params[:courses_search], search_key: :courses_search)
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0)
     render 'index'
   end
 
   def unapproved
     @ransack_path = unapproved_courses_path
     @ransack_courses = Course.unapproved.ransack(params[:courses_search], search_key: :courses_search)
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0)
     render 'index'
   end
 
@@ -56,12 +61,14 @@ class CoursesController < ApplicationController
     authorize @course, :approve?
     @course.update(approved: true)
     redirect_to @course, notice: 'Course approved'
+    @tags = Tag.all.where.not(course_tags_count: 0)
   end
   
   def unapprove
     authorize @course, :approve?
     @course.update(approved: false)
     redirect_to @course, notice: 'Course unapproved and hidden'
+    @tags = Tag.all.where.not(course_tags_count: 0)
   end
 
   def analytics 
@@ -72,17 +79,20 @@ class CoursesController < ApplicationController
     authorize @course
     @lessons = @course.lessons.rank(:row_order).all
     @enrollments_with_review = @course.enrollments.reviewed
+    @tags = Tag.all.where.not(course_tags_count: 0)
   end
 
   # GET /courses/new
   def new
     @course = Course.new
     authorize @course
+    @tags = Tag.all.where.not(course_tags_count: 0)
   end
 
   # GET /courses/1/edit
   def edit
     authorize @course
+    @tags = Tag.all.where.not(course_tags_count: 0)
   end
 
   # POST /courses
@@ -97,7 +107,10 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :new }
+        format.html { 
+          @tags = Tag.all.where.not(course_tags_count: 0)
+          render :new 
+        }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
@@ -112,6 +125,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
+        @tags = Tag.all.where.not(course_tags_count: 0)
         format.html { render :edit }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
@@ -140,6 +154,6 @@ class CoursesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:title, :description, :short_description, :language, :level, :price, :published, :approved, :avatar)
+      params.require(:course).permit(:title, :description, :short_description, :language, :level, :price, :published, :approved, :avatar, tag_ids: [])
     end
 end
